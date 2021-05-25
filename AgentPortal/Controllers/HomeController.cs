@@ -7,7 +7,7 @@ using AgentPortal.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using AgentPortal.ViewModels.Home;
+using AgentPortal.ViewModels.Agent;
 
 namespace AgentPortal.Controllers
 {
@@ -33,6 +33,14 @@ namespace AgentPortal.Controllers
             var agList = _agentData.AllAgentsData();
             AgentListViewModel agVM = new AgentListViewModel();
             agVM.agents = agList;
+            return View(agVM);
+        }
+
+        public IActionResult Agent(string id)
+        {
+            var agList = _agentData.AllAgentsData();
+            AgentListViewModel agVM = new AgentListViewModel();
+            agVM.Agent = agList.Where(x => x.AgentCode == id).First();
             return View(agVM);
         }
         public IActionResult Privacy()
