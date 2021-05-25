@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model AgentPortal.ViewModels.Home.AgentListViewModel
+
+
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>Agent Code </th>
+        <th>Agent Name </th>
+        <th>Commission</th>
+        <th>Phone Number</th>
+        <th>Working Area</th>
+    </tr>
+    @foreach (var agent in Model.agents)
+    {
+        <tr>
+            <td>@agent.AgentCode</td>
+            <td>@agent.AgentName</td>
+            <td>@agent.Commission</td>
+            <td>@agent.PhoneNumber</td>
+            <td>@agent.WorkingArea</td>
+        </tr>
+    }
+</table>  
