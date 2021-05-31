@@ -43,7 +43,39 @@ namespace AgentPortal.Controllers
             agVM.Agent = agList.Where(x => x.AgentCode == id).First();
             return View(agVM);
         }
+
+        [HttpGet]
+        public IActionResult AgentEntryForm()
+        {
+            AgentViewModel agVM = new AgentViewModel();
+            agVM.Agent = new Agents();
+            return View(agVM);
+        }
+
+        [HttpPost]
+        public IActionResult AgentEntryForm(Agents agent)
+        {
+           int num_rows= _agentData.AddNewAgent(agent);
+            if (num_rows > 0) {
+
+                return RedirectToAction("AgentAddedSuccessfully"); 
+            }
+            else {
+
+                return RedirectToAction("Error");
+            }
+
+        }
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        /*public IActionResult AgentAddedSuccessfully(string agentCode)
+        {
+            return View(agentCode);
+        }*/
+
+        public IActionResult AgentAddedSuccessfully() 
         {
             return View();
         }

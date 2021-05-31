@@ -13,8 +13,6 @@ namespace AgentPortal.Models
         public string AgentName { get; set; }
         public string WorkingArea { get; set; }
         public decimal Commission { get; set; }
-
-        [ StringLength(10)]
         public long PhoneNumber { get; set; }
 
     }
