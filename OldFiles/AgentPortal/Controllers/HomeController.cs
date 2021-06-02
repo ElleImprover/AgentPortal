@@ -38,7 +38,7 @@ namespace AgentPortal.Controllers
 
         [HttpGet]
         public IActionResult Agent(string id)
-        {
+        {  
             var agList = _agentData.AllAgentsData();
             AgentListViewModel agVM = new AgentListViewModel();
             agVM.Agent = agList.Where(x => x.AgentCode == id).First();
@@ -48,12 +48,10 @@ namespace AgentPortal.Controllers
         public IActionResult Agent(Agents agent)
         {
             int num_rows = _agentData.DeleteAgent(agent.AgentCode);
-            if (num_rows > 0)
-            {
+            if (num_rows > 0) {
                 return RedirectToAction("AgentList");
             }
-            else
-            {
+            else {
                 return RedirectToAction("Error");
             }
         }
@@ -69,14 +67,12 @@ namespace AgentPortal.Controllers
         [HttpPost]
         public IActionResult AgentEntryForm(Agents agent)
         {
-            int num_rows = _agentData.AddNewAgent(agent);
-            if (num_rows > 0)
-            {
+           int num_rows= _agentData.AddNewAgent(agent);
+            if (num_rows > 0) {
 
-                return RedirectToAction("AgentAddedSuccessfully");
+                return RedirectToAction("AgentAddedSuccessfully"); 
             }
-            else
-            {
+            else {
 
                 return RedirectToAction("Error");
             }
@@ -91,7 +87,7 @@ namespace AgentPortal.Controllers
             return View(agentCode);
         }*/
 
-        public IActionResult AgentAddedSuccessfully()
+        public IActionResult AgentAddedSuccessfully() 
         {
             return View();
         }

@@ -1,19 +1,21 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
+@{ }
 @model AgentPortal.ViewModels.Agent.AgentViewModel
 
 <h2>Agent Entry Form</h2>
-
+<br />
+<br />
 <form method="post" action="/home/AgentEntryForm">
-
-    <div><label>Agent Code</label><input type="text" name="AgentCode" value="@Model.Agent.AgentCode" /></div>
-    <div><label>Agent Name</label><input type="text" name="AgentName" value="@Model.Agent.AgentName" /></div>
-    <div><label>Phone Number</label><input type="number" name="PhoneNumber" value="@Model.Agent.PhoneNumber" /></div>
-    <div><label>Working Area</label><input type="text" name="WorkingArea" value="@Model.Agent.WorkingArea" /></div>
-    <div><label>Commission</label><input type="number" min="0" step="any" name="Commission" value="@Model.Agent.Commission" /></div>
+    <table>
+        <tr><td> Agent Code </td>         <td><input type="text" name="AgentCode" value="@Model.Agent.AgentCode" /></td></tr>
+        <tr><td> Agent Name </td>         <td><input type="text" name="AgentName" value="@Model.Agent.AgentName" /></td>
+        </tr><tr><td> Phone Number </td>  <td><input type="tel" name="PhoneNumber" value="@Model.Agent.PhoneNumber" /></td>
+        </tr><tr><td> Working Area </td>  <td><input type="text" name="WorkingArea" value="@Model.Agent.WorkingArea" /></td>
+        </tr><tr><td> Commission </td>    <td><input type="number" min="0" max="1" step="any" name="Commission" value="@Model.Agent.Commission" /></td></tr>
+    </table>
+    <br /><br />
     <button type="submit">Save</button>
 
 </form>

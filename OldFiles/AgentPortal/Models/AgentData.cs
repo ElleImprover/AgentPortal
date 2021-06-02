@@ -28,7 +28,7 @@ namespace AgentPortal.Models
                 var cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandType = System.Data.CommandType.Text;
-                cmd.CommandText = "SELECT * FROM Agents where REMOVED != '1'or REMOVED is null";
+                cmd.CommandText = "SELECT * FROM Agents";
 
                 var reader = cmd.ExecuteReader();
 
@@ -81,18 +81,17 @@ namespace AgentPortal.Models
 
                 var cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO Agents VALUES(@AgentCode, @AgentName, @WorkingArea, @Commission, @PhoneNo,@Removed); ";
-
+                cmd.CommandText = "INSERT INTO Agents VALUES(@AgentCode, @AgentName, @WorkingArea, @Commission, @PhoneNo); ";
+               
                 cmd.Parameters.Add("@AgentCode", SqlDbType.NVarChar).Value = agent.AgentCode;
                 cmd.Parameters.Add("@AgentName", SqlDbType.VarChar).Value = agent.AgentName;
                 cmd.Parameters.Add("@WorkingArea", SqlDbType.NVarChar).Value = agent.WorkingArea;
                 cmd.Parameters.Add("@Commission", SqlDbType.Decimal).Value = agent.Commission;
                 cmd.Parameters.Add("@PhoneNo", SqlDbType.BigInt).Value = agent.PhoneNumber;
-                cmd.Parameters.Add("@Removed", SqlDbType.Bit).Value = 0;
 
                 cmd.Connection = connection;
 
-                var num_rows = cmd.ExecuteNonQuery();
+               var num_rows= cmd.ExecuteNonQuery();
                 return num_rows;
             }
         }
@@ -102,9 +101,9 @@ namespace AgentPortal.Models
             var connection = _configuration.GetConnectionString("default");
             Agents agent;
 
-            using (var conn = new SqlConnection(connection))
+            using (var conn = new SqlConnection(connection)) 
             {
-                conn.Open();
+                conn.Open(); 
                 var cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.Text;
@@ -114,22 +113,21 @@ namespace AgentPortal.Models
 
                 var reader = cmd.ExecuteReader();
 
-
+              
                 var agCode = reader["AgentCode"].ToString();
                 var agName = reader["AgentName"].ToString();
                 var wArea = reader["WorkingArea"].ToString();
                 var pNumber = Convert.ToInt64(reader["PhoneNo"]);
                 var commission = Convert.ToDecimal(reader["Commission"]);
 
-                agent = new Agents
-                {
+                agent = new Agents {
                     AgentCode = agCode,
                     AgentName = agName,
                     WorkingArea = wArea,
                     PhoneNumber = pNumber,
                     Commission = commission
                 };
-
+                
                 return agent;
             }
         }

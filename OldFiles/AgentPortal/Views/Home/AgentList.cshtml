@@ -14,12 +14,12 @@
     </tr>
     @foreach (var agent in Model.agents)
     {
-<tr>
-    <td><a href="/Home/Agent/@agent.AgentCode">@agent.AgentCode</a></td>
-    <td>@agent.AgentName</td>
-    <td>@agent.Commission</td>
-    <td>@agent.PhoneNumber</td>
-    <td>@agent.WorkingArea</td>
-</tr>
+        <tr>
+            <td><a href="/Home/Agent/@agent.AgentCode">@agent.AgentCode</a></td>
+            <td>@agent.AgentName</td>
+            <td>@agent.Commission</td>
+            <td>@agent.PhoneNumber</td>
+            <td>@agent.WorkingArea</td>
+        </tr>
     }
 </table>  
