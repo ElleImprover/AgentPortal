@@ -39,15 +39,42 @@ namespace AgentPortal.Controllers
         [HttpGet]
         public IActionResult Agent(string id)
         {
-            var agList = _agentData.AllAgentsData();
+            //var agList = _agentData.AllAgentsData();
+            
+
             AgentListViewModel agVM = new AgentListViewModel();
-            agVM.Agent = agList.Where(x => x.AgentCode == id).First();
+            agVM.Agent = _agentData.Agent(id);
+            //agVM.Agent = agList.Where(x => x.AgentCode == id).First();
+           //ED- need to bring method into this code
+            
             return View(agVM);
         }
         [HttpPost]
         public IActionResult Agent(Agents agent)
         {
             int num_rows = _agentData.DeleteAgent(agent.AgentCode);
+            if (num_rows > 0)
+            {
+                return RedirectToAction("AgentList");
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult EditAgent(string agentCode)
+        {
+            AgentViewModel agVm = new AgentViewModel();
+            agVm.Agent  = _agentData.Agent(agentCode);
+            return View(agVm);
+        }
+
+        [HttpPost]
+        public IActionResult EditAgent(Agents agent)
+        {
+            int num_rows = _agentData.EditAgent(agent);
             if (num_rows > 0)
             {
                 return RedirectToAction("AgentList");

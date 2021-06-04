@@ -72,6 +72,34 @@ namespace AgentPortal.Models
             }
         }
 
+        internal int EditAgent(Agents agent)
+        {
+            string connString = _configuration.GetConnectionString("default");
+            using (var connection = new SqlConnection(connString)) {
+                connection.Open(); 
+                var cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = 
+                    "UPDATE Agents "+
+                    "SET AgentCode=@Agentcode, " +
+                    "AgentName=@AgentName, "+
+                    "WorkingArea=@WorkingArea, " +
+                    "Commission=@Commission, " +
+                    "PhoneNo=@PhoneNo, " +
+                    "Removed=@Removed " +
+                    "WHERE AgentCode = @AgentCode; ";
+
+                cmd.Parameters.Add("@AgentCode", SqlDbType.NVarChar).Value = agent.AgentCode;
+                cmd.Parameters.Add("@AgentName", SqlDbType.VarChar).Value = agent.AgentName;
+                cmd.Parameters.Add("@WorkingArea", SqlDbType.NVarChar).Value = agent.WorkingArea;
+                cmd.Parameters.Add("@Commission", SqlDbType.Decimal).Value = agent.Commission;
+                cmd.Parameters.Add("@PhoneNo", SqlDbType.BigInt).Value = agent.PhoneNumber;
+                cmd.Parameters.Add("@Removed", SqlDbType.Bit).Value = 0; cmd.Connection = connection;
+                var num_rows = cmd.ExecuteNonQuery();
+                return num_rows;
+            }
+        }
+
         internal int AddNewAgent(Agents agent)
         {
             string connString = _configuration.GetConnectionString("default");
@@ -108,13 +136,16 @@ namespace AgentPortal.Models
                 var cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ID", SqlDbType.Char);
-                cmd.Parameters["@ID"].Value = id;
-                cmd.CommandText = "SELECT * FROM Agents where AgentCode=@id";
+                cmd.Parameters.Add("@AgentCode", SqlDbType.NVarChar).Value = id;
+                //ed-testing
+                var list = new List<string>();
+                foreach (var x in cmd.Parameters)
+                {
+                    Console.WriteLine(((SqlParameter)x).Value.ToString()) ; }
+                cmd.CommandText = "SELECT * FROM Agents where AgentCode=@AgentCode";
 
                 var reader = cmd.ExecuteReader();
-
-
+                 
                 var agCode = reader["AgentCode"].ToString();
                 var agName = reader["AgentName"].ToString();
                 var wArea = reader["WorkingArea"].ToString();
@@ -129,7 +160,7 @@ namespace AgentPortal.Models
                     PhoneNumber = pNumber,
                     Commission = commission
                 };
-
+                //reader.Close();
                 return agent;
             }
         }

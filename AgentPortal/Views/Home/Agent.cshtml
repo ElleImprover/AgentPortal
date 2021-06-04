@@ -18,8 +18,10 @@
         </p>
         <br />
         <br />
-        @Html.HiddenFor(m => m.Agent.AgentCode)
-        <button id="btnDelete" type="submit">Delete</button>
+        @*@Html.HiddenFor(m => m.Agent.AgentCode)*@
+        <input type="hidden" name="agentCode" value="@Model.Agent.AgentCode" />
+        <button id="btnDelete" type="submit">Delete</button><br />
+        <a href="/Home/EditAgent/@Model.Agent.AgentCode">Edit Agent</a>
     </form>
 
 
